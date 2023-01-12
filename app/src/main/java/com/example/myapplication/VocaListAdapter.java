@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHolder>{
     private ArrayList<String> vocaNameList;
@@ -30,7 +32,11 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHo
 
         void onBind(String item) {
             name.setText(item);
-            date.setText(String.valueOf(System.currentTimeMillis()));
+            long now = System.currentTimeMillis();
+            Date d = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String getTime = sdf.format(d);
+            date.setText(getTime);
         }
 
     }
