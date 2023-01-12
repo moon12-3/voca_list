@@ -4,17 +4,17 @@
         android:id="@+id/list"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_article_24"
-        android:title="Write" />
+        android:title="List" />
     <item
         android:id="@+id/test"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_quiz_24"
-        android:title="Maps"/>
+        android:title="Quiz"/>
 
     <item
         android:id="@+id/study"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_menu_book_24"
-        android:title="Record">
+        android:title="Study">
     </item>
 </menu>

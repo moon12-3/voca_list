@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,28 +9,41 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> vocaNameList = new ArrayList<>();
 
-
+    BottomNavigationView bottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.fragment_container);
+        bottom = findViewById(R.id.navigationView);
+        getSupportFragmentManager().beginTransaction().add(R.id.frame, new MainFragment()).commit();
 
-        for(int i=1;i<=10;i++){
-            vocaNameList.add("단어장 "+i);
-        }
+        bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        VocaListAdapter recyclerAdapter = new VocaListAdapter(vocaNameList);
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                switch (item.getItemId()) {
+                    case R.id.list:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MainFragment()).commit();
+                        break;
+                    case R.id.test:
+                        break;
+                    case R.id.study:
+                }
 
-
-
+                return true;
+            }
+        });
     }
 }
