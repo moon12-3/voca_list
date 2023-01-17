@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHolder>{
     private ArrayList<String> vocaNameList;
+    private HashMap<String, String> vocaList = new HashMap<>();
 
     public VocaListAdapter(ArrayList<String> vocaNameList) {
         this.vocaNameList = vocaNameList;

@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_margin="4dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/voca_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="단어 영어 "
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/voca_mean"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="단어 뜻"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/voca_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="단어 영어 "
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/voca_mean"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="단어 뜻"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/voca_date"
-        android:layout_width="wrap_content"
-        android:text="날짜"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/voca_date"
+            android:layout_width="wrap_content"
+            android:text="날짜"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"/>
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="삭제"/>
-</LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_delete_24" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

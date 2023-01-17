@@ -27,6 +27,13 @@ public class MainFragment extends Fragment {
             vocaNameList.add("단어장 "+i);
         }
 
+        view.findViewById(R.id.add_article).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).changeFragment(1);
+            }
+        });
+
         VocaListAdapter recyclerAdapter = new VocaListAdapter(vocaNameList);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
