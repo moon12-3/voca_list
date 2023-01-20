@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="단어장"
+        android:text="로그인 하기"
         android:textSize="50sp"
         android:textStyle="bold"/>
 
@@ -47,9 +47,10 @@
         android:layout_marginRight="10dp"/>
 
     <Button
+        android:id="@+id/start_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인"
+        android:text="확인"
         android:textSize="25sp"
         android:layout_marginTop="30dp"/>
 </LinearLayout>
