@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainFragment extends Fragment {
 
-    private ArrayList<String> vocaNameList = new ArrayList<>();
+    List<WordModel> vocaList = new ArrayList<>();
+    RoomDB db;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -23,9 +27,9 @@ public class MainFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.fragment_container);
 
-        for(int i=1;i<=10;i++){
-            vocaNameList.add("단어장 "+i);
-        }
+        db = RoomDB.getInstance(getActivity().getApplicationContext());
+
+        vocaList = db.mainDao().getAll();
 
         view.findViewById(R.id.add_article).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -34,7 +38,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        VocaListAdapter recyclerAdapter = new VocaListAdapter(vocaNameList);
+        VocaListAdapter recyclerAdapter = new VocaListAdapter(vocaList, (Activity) getActivity().getApplicationContext());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

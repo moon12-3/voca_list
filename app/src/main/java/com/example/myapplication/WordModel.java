@@ -17,10 +17,10 @@ public class WordModel implements Serializable
     @ColumnInfo(name = "mean")
     private String mean;
 
-    public int getId()
-    {
-        return id;
+    public WordModel() {
     }
+
+    public int getId() { return id; }
 
     public void setId(int id)
     {
