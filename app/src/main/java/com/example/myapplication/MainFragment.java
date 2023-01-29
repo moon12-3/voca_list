@@ -46,7 +46,6 @@ public class MainFragment extends Fragment {
 
                    recyclerView.setAdapter(recyclerAdapter);
                    recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                   Log.d("test", "테스트용 " + vocaList.get(10).text);
                }
                catch (Exception e) {
                    Log.d("test", e.toString());
