@@ -1,38 +1,35 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHolder>{
-    private List<WordModel> vocaList;
-    private Activity context;
-    private RoomDB db;
+    private List<Word> vocaList;
+    private WordDB db;
 
-    public VocaListAdapter(List<WordModel> vocaList, Activity context) {
+    public VocaListAdapter(List<Word> vocaList) {
         this.vocaList = vocaList;
-        this.context = context;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView mean;
         TextView date;
-        Button delete;
+        ImageView delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -43,22 +40,21 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHo
             delete = itemView.findViewById(R.id.delete_btn);
         }
 
-        void onBind(WordModel item) {
-            name.setText(item.getText());
-            mean.setText(item.getMean());
+        void onBind(Word item) {
+            mean.setText(item.mean);
             long now = System.currentTimeMillis();
             Date d = new Date(now);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String getTime = sdf.format(d);
             date.setText(getTime);
-            
+
             // 삭제버튼
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    WordModel wordModel = vocaList.get(getAdapterPosition());
+                    Word wordModel = vocaList.get(getAdapterPosition());
 
-                    db.mainDao().delete(wordModel);
+                    db.wordDao().delete(wordModel);
 
                     int position = getAdapterPosition();
                     vocaList.remove(position);
@@ -74,16 +70,20 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHo
     @NonNull
     @Override
     public VocaListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voca_list_item, parent, false);
-        return new ViewHolder(view);
+        Context context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.voca_list_item, parent, false);
+        VocaListAdapter.ViewHolder vh = new VocaListAdapter.ViewHolder(view);
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull VocaListAdapter.ViewHolder holder, int position) {
-        final WordModel wordModel = vocaList.get(position);
-        db = RoomDB.getInstance(context);
-        holder.onBind(wordModel);
-
+        Word item = vocaList.get(position);
+        holder.name.setText(item.text);
+        holder.onBind(item);
+//        db = WordDB.getInstance(context);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +20,7 @@ public class PlusFragment extends Fragment {
     EditText text;
     EditText mean;
     Button add, cancel;
-
-    List<WordModel> vocaList = new ArrayList<>();
-    RoomDB db;
+    WordDB db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,27 +31,27 @@ public class PlusFragment extends Fragment {
         mean = view.findViewById(R.id.mean);
         add = view.findViewById(R.id.plus_btn);
 
-        db = RoomDB.getInstance((Activity) getActivity().getApplicationContext());
+        Context context = getActivity().getApplicationContext();
+        db = WordDB.getInstance(context);
 
-        vocaList = db.mainDao().getAll();
 
-        add.setOnClickListener(new View.OnClickListener() {
+        class InsertRunnable implements Runnable {
 
-            public void onClick(View v) {
-                String sText = text.getText().toString().trim();
-                if (!sText.equals(""))
-                {
-                    WordModel data = new WordModel();
-                    data.setText(sText);
-                    db.mainDao().insert(data);
-
-                    text.setText("");
-
-                    vocaList.clear();
-                    vocaList.addAll(db.mainDao().getAll());
-
-                }
+            @Override
+            public void run() {
+                Word word = new Word();
+                word.text = text.getText().toString();
+                word.mean = mean.getText().toString();
+                db.getInstance(context).wordDao().insertAll(word);
             }
+        }
+
+
+        add.setOnClickListener(v -> {
+            InsertRunnable insertRunnable = new InsertRunnable();
+            Thread t = new Thread(insertRunnable);
+            t.start();
+            ((MainActivity)getActivity()).changeFragment(2);
         });
 
         return view;

@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             case 1 :
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame, new PlusFragment()).commit();
                 break;
+            case 2 :
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MainFragment()).commit();
         }
     }
 }
