@@ -12,7 +12,7 @@ public class LoginActivity extends AppCompatActivity {
     Button a;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //공부 추가
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
