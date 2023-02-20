@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
            public void run() {
                try {
                     vocaList = db.getInstance(context).wordDao().getAll();
-                    recyclerAdapter = new VocaListAdapter(vocaList);
+                    recyclerAdapter = new VocaListAdapter(vocaList, getActivity().getApplicationContext());
                     recyclerAdapter.notifyDataSetChanged();
 
                    recyclerView.setAdapter(recyclerAdapter);

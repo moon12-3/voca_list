@@ -20,9 +20,11 @@ import java.util.List;
 public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHolder>{
     private List<Word> vocaList;
     private WordDB db;
+    Context context;
 
-    public VocaListAdapter(List<Word> vocaList) {
+    public VocaListAdapter(List<Word> vocaList, Context context) {
         this.vocaList = vocaList;
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,6 +42,16 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHo
             delete = itemView.findViewById(R.id.delete_btn);
         }
 
+        class InsertRunnable implements Runnable {
+
+            @Override
+            public void run() {
+                Word wordModel = vocaList.get(getAdapterPosition());
+                db = WordDB.getInstance(context);
+                db.getInstance(context).wordDao().delete(wordModel);
+            }
+        }
+
         void onBind(Word item) {
             mean.setText(item.mean);
             long now = System.currentTimeMillis();
@@ -49,19 +61,15 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.ViewHo
             date.setText(getTime);
 
             // 삭제버튼
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Word wordModel = vocaList.get(getAdapterPosition());
+            delete.setOnClickListener(v-> {
+                InsertRunnable insertRunnable = new InsertRunnable();
+                Thread t = new Thread(insertRunnable);
+                t.start();
 
-                    db.wordDao().delete(wordModel);
-
-                    int position = getAdapterPosition();
-                    vocaList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, vocaList.size());
-                }
-
+                int position = getAdapterPosition();
+                vocaList.remove(position);
+//                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, vocaList.size());
             });
         }
 
